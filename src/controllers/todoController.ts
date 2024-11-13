@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { TodoDTO } from "../dtos/todoDTO.js";
+import { TodoDTO } from "../dtos/todoDTO";
 
 interface ITodo {
   id: string;

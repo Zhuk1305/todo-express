@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import { TodoController } from "../controllers/todoController.js";
-import { validateTodo } from "../middlewares/validateTodo.js";
+import { TodoController } from "../controllers/todoController";
+import { validateTodo } from "../middlewares/validateTodo";
 
 export const todoRoutes = express.Router();
 
