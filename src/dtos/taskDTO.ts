@@ -1,4 +1,4 @@
-export class TodoDTO {
+export class TaskDTO {
   id: string;
   title: string;
   completed: boolean;

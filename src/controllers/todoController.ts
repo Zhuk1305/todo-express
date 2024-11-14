@@ -1,13 +1,13 @@
-import { v4 } from "uuid";
-import { TodoDTO } from "../dtos/todoDTO";
+import { TaskDTO } from "../dtos/taskDTO";
+import { ITask } from "../interfaces/task.interface";
+import { TaskServices } from "../services/task.services";
+import {
+  TTaskCreatePayload,
+  TTaskDeletePayload,
+  TTaskUpdatedPayload,
+} from "../types/task.types";
 
-interface ITodo {
-  id: string;
-  title: string;
-  completed: boolean;
-}
-
-let todos: TodoDTO[] = [
+let todos: TaskDTO[] = [
   {
     id: "1628003768123",
     title: "Learn Express.js",
@@ -16,28 +16,21 @@ let todos: TodoDTO[] = [
 ];
 
 export class TodoController {
-  getAll() {
-    return todos;
+  private taskServices = new TaskServices();
+
+  async getAll() {
+    return this.taskServices.getAll();
   }
 
-  createTodo(payload: { title: string }) {
-    const newTodo = new TodoDTO(v4(), payload.title, false);
-    todos.push(newTodo);
-    return todos;
+  createTodo(payload: TTaskCreatePayload) {
+    return this.taskServices.createTask(payload);
   }
 
-  updateTodo(id: string, payload: { title: string; completed: boolean }) {
-    const todo: ITodo | undefined = todos.find((todo) => todo.id === id);
-    if (todo) {
-      todo.title = payload.title;
-      todo.completed = payload.completed;
-    }
-
-    return todos;
+  updateTodo(payload: TTaskUpdatedPayload) {
+    return this.taskServices.updatedTask(payload);
   }
 
-  deleteTodo(id: string) {
-    todos = todos.filter((todo) => todo.id != id);
-    return todos;
+  deleteTodo(payload: TTaskDeletePayload) {
+    return this.taskServices.deleteTask(payload);
   }
 }
